@@ -45,7 +45,7 @@ const DevContentSections = () => {
       } transition-colors duration-300`}
     >
       {/* Terminal Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="pt-15 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -286,6 +286,7 @@ const DevContentSections = () => {
               ))}
             </div>
           </motion.div>
+          <p className="">&copy; Copyright . 2025 ( IM )</p>
         </div>
       </section>
     </div>
