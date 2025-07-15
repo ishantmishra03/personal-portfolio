@@ -10,11 +10,12 @@ const DevContentSections = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  // Terminal typing effect
   useEffect(() => {
     const commands = [
-      "npm install express mongoose",
-      "git commit -m 'Learning Backend'",
+      "git checkout -b feature/auth",
+      "npm install express mongoose cors",
+      "nodemon server.js",
+      "curl -X GET https://api.mydomain.com/health",
     ];
 
     let currentCommand = 0;
@@ -24,7 +25,7 @@ const DevContentSections = () => {
       if (currentChar < commands[currentCommand].length) {
         setTerminalText(commands[currentCommand].slice(0, currentChar + 1));
         currentChar++;
-        setTimeout(typeCommand, 100);
+        setTimeout(typeCommand, 80);
       } else {
         setTimeout(() => {
           currentCommand = (currentCommand + 1) % commands.length;
@@ -45,7 +46,7 @@ const DevContentSections = () => {
       } transition-colors duration-300`}
     >
       {/* Terminal Section */}
-      <section className="pt-15 relative overflow-hidden">
+      <section className="pt-20 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -101,7 +102,7 @@ const DevContentSections = () => {
                     isDark ? "text-gray-500" : "text-gray-500"
                   } text-xs`}
                 >
-                  ishant@dev:~
+                  ishant@portfolio:~/
                 </div>
               </div>
 
@@ -128,11 +129,11 @@ const DevContentSections = () => {
                     isDark ? "text-gray-400" : "text-gray-600"
                   } text-sm space-y-1`}
                 >
-                  <div>✓ Building scalable web applications</div>
-                  <div>✓ Optimizing cloud infrastructure</div>
-                  <div>✓ Contributing to open source</div>
+                  <div>✓ Architecting scalable MERN stack systems</div>
+                  <div>✓ Implementing secure JWT-based authentication</div>
+                  <div>✓ Developing RESTful APIs & MongoDB schemas</div>
                   <div className="text-green-400">
-                    ✓ Always learning something new
+                    ✓ Continuously improving backend performance
                   </div>
                 </div>
               </div>
@@ -168,7 +169,7 @@ const DevContentSections = () => {
                 } mb-4`}
               >
                 <span className="text-blue-400">function</span>{" "}
-                <span className="text-yellow-400">buildAmazingThings</span>(){" "}
+                <span className="text-yellow-400">buildWithPurpose</span>(){" "}
                 {"{"}
               </div>
 
@@ -179,23 +180,21 @@ const DevContentSections = () => {
               >
                 <div className="flex items-start space-x-3">
                   <span className="text-green-400 mt-1">✓</span>
-                  <span>Write clean, maintainable code that scales</span>
+                  <span>Craft solutions that are robust and scalable</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <span className="text-green-400 mt-1">✓</span>
-                  <span>Test-driven development for reliable software</span>
+                  <span>Prioritize readability and testability in code</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <span className="text-green-400 mt-1">✓</span>
-                  <span>Performance optimization from day one</span>
+                  <span>Build APIs with performance and security in mind</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <span className="text-green-400 mt-1">✓</span>
-                  <span>User experience drives technical decisions</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-green-400 mt-1">✓</span>
-                  <span>Continuous learning and knowledge sharing</span>
+                  <span>
+                    Stay up-to-date with modern web technologies and patterns
+                  </span>
                 </div>
               </div>
 
@@ -211,7 +210,7 @@ const DevContentSections = () => {
         </div>
       </section>
 
-      {/* Contact CTA */}
+      {/* CTA */}
       <section
         className={`py-20 ${
           isDark
@@ -228,15 +227,15 @@ const DevContentSections = () => {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Let's Build Something{" "}
-              <span className="text-blue-500">Amazing</span>
+              <span className="text-blue-500">Professional</span>
             </h2>
             <p
               className={`${
                 isDark ? "text-gray-400" : "text-gray-600"
               } text-lg mb-8 max-w-2xl mx-auto`}
             >
-              Ready to turn your ideas into reality? Let's discuss your next
-              project.
+              Looking for a reliable developer who bridges frontend aesthetics
+              with backend architecture? I’d love to hear about your project.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -248,7 +247,9 @@ const DevContentSections = () => {
                 whileTap={{ scale: 0.98 }}
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-none relative overflow-hidden group transition-all duration-300"
               >
-                <Link to="/contact"><span className="relative z-10">Start a Project</span></Link>
+                <Link to="/contact">
+                  <span className="relative z-10">Start a Project</span>
+                </Link>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
               </motion.button>
 
@@ -275,6 +276,7 @@ const DevContentSections = () => {
                   key={platform}
                   href="https://github.com/ishantmishra03"
                   target="_blank"
+                  rel="noreferrer"
                   whileHover={{
                     scale: 1.1,
                     color: "#3B82F6",
@@ -286,7 +288,7 @@ const DevContentSections = () => {
               ))}
             </div>
           </motion.div>
-          <p className="">&copy; Copyright . 2025 ( IM )</p>
+          <p className="mt-10 text-sm opacity-60">© 2025 Ishant Mishra</p>
         </div>
       </section>
     </div>

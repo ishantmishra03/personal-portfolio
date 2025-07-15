@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ProjectCard } from "../components";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -6,20 +6,20 @@ import { motion } from "framer-motion";
 const Projects = () => {
   const projects = useSelector((state) => state.projects.projects);
   const isDark = useSelector((state) => state.theme.isDark);
-  const [filter, setFilter] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [filter, setFilter] = useState("all");
+  // const [searchTerm, setSearchTerm] = useState("");
 
   
-  const categories = ["all", ...new Set(projects.map(p => p.category).filter(Boolean))];
+  // const categories = ["all", ...new Set(projects.map(p => p.category).filter(Boolean))];
 
   
-  const filteredProjects = projects.filter(project => {
-    const matchesFilter = filter === "all" || project.category === filter;
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies?.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesFilter && matchesSearch;
-  });
+  // const filteredProjects = projects.filter(project => {
+  //   const matchesFilter = filter === "all" || project.category === filter;
+  //   const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //                        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //                        project.technologies?.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+  //   return matchesFilter && matchesSearch;
+  // });
 
   // Animation variants
   const containerVariants = {
@@ -162,14 +162,14 @@ const Projects = () => {
             </div>
 
             {/* Filters and Search */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-between items-center"
-            >
+            > */}
               {/* Category Filters */}
-              <div className="flex flex-wrap gap-2">
+              {/* <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <motion.button
                     key={category}
@@ -192,7 +192,7 @@ const Projects = () => {
               </div>
 
               {/* Search Bar */}
-              <div className="relative">
+              {/* <div className="relative">
                 <motion.input
                   whileFocus={{ scale: 1.02 }}
                   type="text"
@@ -212,11 +212,11 @@ const Projects = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-              </div>
-            </motion.div>
+              </div> */}
+            {/* </motion.div> */}
 
             {/* Results Count */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.4 }}
@@ -225,20 +225,20 @@ const Projects = () => {
               <span className="text-sm">
                 Showing {filteredProjects.length} of {projects.length} projects
               </span>
-            </motion.div>
+            </motion.div> */}
           </div>
         </motion.div>
 
         {/* Projects Grid */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {filteredProjects.length > 0 ? (
+          {projects.length > 0 ? (
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8"
             >
-              {filteredProjects.map((project, index) => (
+              {projects.map((project, index) => (
                 <motion.div
                   key={index}
                   variants={itemVariants}

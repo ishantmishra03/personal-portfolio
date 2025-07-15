@@ -8,14 +8,16 @@ const HeroSection = () => {
   const [typedText, setTypedText] = useState("");
   const [currentRole, setCurrentRole] = useState(0);
   
-  // Get isDark from Redux store
-  const isDark = useSelector((state) => state.theme.isDark); // Adjust path based on your store structure
+ 
+  const isDark = useSelector((state) => state.theme.isDark); 
   
-  const roles = [
-    "Frontend Developer",
-    "UI/UX Designer", 
-    "React Developer",
-  ];
+ const roles = [
+  "Full Stack Developer",
+  "MERN Stack Developer",
+  "React Developer",
+  "Node.js Backend Developer",
+];
+
   
   // Mouse tracking for 3D effects
   const mouseX = useMotionValue(0);
