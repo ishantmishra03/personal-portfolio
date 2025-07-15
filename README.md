@@ -40,7 +40,13 @@ A modern, responsive, and animated personal portfolio website built using **Reac
 
 ---
 
-## 🔧 Backend (Coming Soon)
+## 🔧 Backend 
+- 🌐 **Node.js** – Runtime environment  
+- 🚀 **Express.js** – Fast and minimalist backend framework  
+- 🛢️ **MongoDB** – NoSQL database for storing messages and user data  
+- 🔐 **CORS & dotenv** – Secure environment and API setup  
+- 📩 **Mongoose** – ODM for MongoDB  
+- 🌍 **REST API** – Contact form integration and backend endpoints  
 
 
 ---
