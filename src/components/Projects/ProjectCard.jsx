@@ -40,7 +40,7 @@ const ProjectCard = ({ project }) => {
                 <img
                   src={project.image}
                   alt={`${project.title} preview`}
-                  className={`w-full h-48 sm:h-52 md:h-48 lg:h-52 object-cover transition-all duration-500 ${
+                  className={`w-full h-48 sm:h-52 md:h-48 lg:h-52 object-cover object-top transition-all duration-500 ${
                     imageLoaded ? "opacity-100 blur-0" : "opacity-0 blur-sm"
                   }`}
                   onLoad={handleImageLoad}

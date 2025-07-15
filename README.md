@@ -40,9 +40,8 @@ A modern, responsive, and animated personal portfolio website built using **Reac
 
 ---
 
-## 🔧 Backend (In Progress)
+## 🔧 Backend (Coming Soon)
 
-I’m currently learning backend development (Node.js, Express, MongoDB) and will integrate form submission and project data from a database in the future.
 
 ---
 
@@ -52,4 +51,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-> 💡 **Note:** This is a personal project aimed at showcasing my skills as a frontend developer. Feedback is always welcome!
+> 💡 **Note:** This is a personal project aimed at showcasing my skills as a full stack developer. Feedback is always welcome!

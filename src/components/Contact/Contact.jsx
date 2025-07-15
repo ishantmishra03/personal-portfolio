@@ -50,8 +50,8 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <p className={`text-sm font-medium ${isDark ? "text-slate-300" : "text-slate-600"}`}>Email me at</p>
-                    <a href="mailto:kinob17426@daxiake.com" className={`text-lg font-semibold ${isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"}`}>
-                      kinob17426@daxiake.com
+                    <a href="mailto:ishantmishra.dev@gmail.com" className={`text-lg font-semibold ${isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"}`}>
+                      ishantmishra.dev@gmail.com
                     </a>
                   </div>
                 </div>
