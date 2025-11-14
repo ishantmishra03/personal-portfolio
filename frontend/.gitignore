@@ -1,26 +1,80 @@
-# Logs
-logs
-*.log
+# ───────────────────────────────────────────
+# Node
+# ───────────────────────────────────────────
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-node_modules
-dist
-dist-ssr
-*.local
+# Optional: keep one lockfile if you want reproducible installs
+# !package-lock.json
+# !yarn.lock
+# !pnpm-lock.yaml
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ───────────────────────────────────────────
+# Next.js
+# ───────────────────────────────────────────
+.next/
+out/
+.next/cache/
+.vercel/
 
+# TypeScript build output (if using tsc for type checking)
+dist/
+
+# ───────────────────────────────────────────
+# Environment variables
+# ───────────────────────────────────────────
 .env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ───────────────────────────────────────────
+# OS & Editor Junk
+# ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains (WebStorm)
+.idea/
+
+# ───────────────────────────────────────────
+# Logs
+# ───────────────────────────────────────────
+logs/
+*.log
+*.pid
+*.seed
+*.tsbuildinfo
+
+# ───────────────────────────────────────────
+# Next.js Image Optimization Cache
+# ───────────────────────────────────────────
+.next/trace
+.next/server/app/webpack-runtime.js
+
+# ───────────────────────────────────────────
+# Turbo Repo (if used)
+# ───────────────────────────────────────────
+.turbo/
+
+# ───────────────────────────────────────────
+# Misc
+# ───────────────────────────────────────────
+*.swp
+*.swo
+*.orig
