@@ -93,12 +93,12 @@ export default function Contact() {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
-    setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
 
     if (!validateForm()) return;
 
+     setLoading(true);
     try {
       const { data } = await api.post("/contact", formData);
 
