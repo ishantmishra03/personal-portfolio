@@ -8,6 +8,7 @@ const connectDB = async () => {
     await mongoose.connect(`${process.env.MONGODB_URI}/portfolio`);
   } catch (error) {
     console.log(error.message);
+    process.exit(1);
   }
 };
 

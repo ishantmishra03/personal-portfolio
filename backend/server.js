@@ -13,6 +13,7 @@ import contactRouter from "./routes/contact.routes.js";
 //CORS
 const allowedOrigins = [
   "https://ishantmishra.vercel.app",
+  "http://localhost:3000",
 ];
 
 app.use(
