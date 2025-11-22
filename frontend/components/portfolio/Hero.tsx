@@ -1,26 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Github, Linkedin, Mail } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ArrowRight,
+  Terminal,
+} from "lucide-react";
 
 export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
-  const textRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Trigger entrance animations
     setIsLoaded(true);
-  }, []);
 
-  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      setMousePos({
-        x: ((e.clientX - rect.left) / rect.width) * 100,
-        y: ((e.clientY - rect.top) / rect.height) * 100,
-      });
+      // Calculate percentage for parallax
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setMousePos({ x, y });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -38,211 +42,153 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950"
     >
-      {/* Dynamic mesh gradient background */}
+      {/* --- Background FX (Matched to About Section) --- */}
+
+      {/* 1. Dynamic Radial Gradients */}
       <div
-        className="absolute inset-0 opacity-40 transition-all duration-500"
+        className="absolute inset-0 opacity-40 transition-all duration-500 ease-out"
         style={{
           background: `
-            radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, 
-              rgba(6, 182, 212, 0.15) 0%, 
-              transparent 50%),
+            radial-gradient(circle at ${mousePos.x}% ${
+            mousePos.y
+          }%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
             radial-gradient(circle at ${100 - mousePos.x}% ${
             100 - mousePos.y
-          }%, 
-              rgba(14, 165, 233, 0.1) 0%, 
-              transparent 50%)
+          }%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)
           `,
         }}
       />
 
-      {/* Animated grid that follows mouse */}
-      <div className="absolute inset-0 opacity-20">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern
-              id="grid"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-              patternTransform={`translate(${mousePos.x * 0.5} ${
-                mousePos.y * 0.5
-              })`}
-            >
-              <path
-                d="M 40 0 L 0 0 0 40"
-                fill="none"
-                stroke="rgba(6, 182, 212, 0.2)"
-                strokeWidth="1"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+      {/* 2. CRT Scanline & Noise Overlay */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-soft-light" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-cyan-500/[0.03] to-transparent bg-[length:100%_4px]" />
 
-      <div className="relative z-10 px-6 max-w-7xl mx-auto">
+      {/* 3. Animated Grid Background */}
+      <div
+        className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(to right, #06b6d4 1px, transparent 1px), linear-gradient(to bottom, #06b6d4 1px, transparent 1px)`,
+          backgroundSize: "4rem 4rem",
+          transform: `translate(${mousePos.x * 0.05}px, ${
+            mousePos.y * 0.05
+          }px)`,
+        }}
+      />
+
+      {/* --- Main Content --- */}
+      <div className="relative z-10 px-6 max-w-7xl mx-auto w-full">
         <div
-          ref={textRef}
-          className={`transition-all duration-1500 ease-out ${
-            isLoaded ? "opacity-100" : "opacity-0"
+          className={`flex flex-col items-center text-center transition-all duration-1000 ease-out ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          {/* Glitch effect name */}
-          <div className="relative mb-4 overflow-hidden">
+          {/* Top Badge */}
+          <div className="mb-8 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-500/30 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+            </span>
+            <span className="text-xs font-mono text-cyan-300">
+              SYSTEM_ONLINE
+            </span>
+          </div>
+
+          {/* Name / Title with Glitch Effect */}
+          <div className="relative mb-6 group">
             <h1
-              className="text-[20vw] md:text-[15vw] font-black leading-none tracking-tighter text-white"
+              className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 select-none"
               style={{
-                textShadow: `
-                  ${mousePos.x * 0.02}px ${
-                  mousePos.y * 0.02
-                }px 0 rgba(6, 182, 212, 0.7),
-                  ${-mousePos.x * 0.02}px ${
-                  -mousePos.y * 0.02
-                }px 0 rgba(14, 165, 233, 0.7)
-                `,
+                textShadow: `0 0 40px rgba(6, 182, 212, 0.3)`,
                 transform: `perspective(1000px) rotateX(${
-                  (mousePos.y - 50) * 0.05
-                }deg) rotateY(${(mousePos.x - 50) * 0.05}deg)`,
-                transition: "transform 0.1s ease-out",
+                  (mousePos.y - 50) * 0.02
+                }deg) rotateY(${(mousePos.x - 50) * 0.02}deg)`,
               }}
             >
               ISHANT
             </h1>
 
-            {/* Scan line effect */}
-            <div
-              className="absolute inset-0 bg-linear-to-b from-transparent via-cyan-400/20 to-transparent h-1"
-              style={{
-                top: `${mousePos.y}%`,
-                transition: "top 0.3s ease-out",
-              }}
-            />
-          </div>
-
-          {/* Subtitle with tracking mouse */}
-          <div className="flex items-center gap-4 mb-12">
-            <div
-              className="h-0.5 bg-linear-to-r from-cyan-400 to-transparent transition-all duration-300"
-              style={{ width: `${20 + mousePos.x * 0.3}px` }}
-            />
-            <p
-              className="text-2xl md:text-4xl font-light text-cyan-400 tracking-widest"
-              style={{
-                transform: `translateX(${(mousePos.x - 50) * 0.1}px)`,
-                transition: "transform 0.2s ease-out",
-              }}
-            >
-              FULL-STACK DEVELOPER
-            </p>
-          </div>
-
-          {/* Description */}
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 font-light">
-            Architecting digital experiences where innovation meets execution.
-            <br />
-            <span className="text-cyan-400/60">
-              {">"} Code • Design • Impact
+            {/* Decorative decorative marks */}
+            <span className="absolute -top-4 -right-8 md:-top-2 md:-right-12 text-cyan-500/40 font-mono text-sm md:text-xl">
+              v2.0
             </span>
+          </div>
+
+          {/* Subtitle / Role */}
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 mb-10 text-lg md:text-2xl font-light text-gray-300">
+            <span className="hidden md:inline-block w-8 h-[1px] bg-cyan-500/50"></span>
+            <p className="font-mono text-cyan-400">{`<FullStack />`}</p>
+            <span className="hidden md:inline-block w-1 h-1 rounded-full bg-gray-600"></span>
+            <p>Developer & Backend Engineer</p>
+            <span className="hidden md:inline-block w-8 h-[1px] bg-cyan-500/50"></span>
+          </div>
+
+          <p className="max-w-xl text-gray-400 mb-12 leading-relaxed text-sm md:text-base">
+            Crafting scalable applications with modern architecture. Merging
+            technical complexity with visual elegance.
           </p>
 
-          {/* Interactive buttons */}
-          <div className="flex flex-wrap gap-6 mb-16">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-5 mb-16 w-full sm:w-auto">
             <button
               onClick={scrollToProjects}
-              className="group relative px-8 py-4 bg-transparent border-2 border-cyan-400 text-cyan-400 font-bold overflow-hidden transition-all duration-300 hover:text-black"
-              onMouseEnter={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty(
-                  "--mouse-x",
-                  `${e.clientX - rect.left}px`
-                );
-                e.currentTarget.style.setProperty(
-                  "--mouse-y",
-                  `${e.clientY - rect.top}px`
-                );
+              className="group relative px-8 py-4 bg-cyan-500 text-black font-bold text-sm tracking-wider overflow-hidden hover:bg-cyan-400 transition-colors"
+              style={{
+                clipPath:
+                  "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
               }}
             >
-              <span className="relative z-10">EXPLORE WORK</span>
-              <div
-                className="absolute inset-0 bg-cyan-400 scale-0 group-hover:scale-150 transition-transform duration-500 origin-center rounded-full"
-                style={{
-                  left: "var(--mouse-x, 50%)",
-                  top: "var(--mouse-y, 50%)",
-                  transform: "translate(-50%, -50%) scale(0)",
-                }}
-              />
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative flex items-center gap-2">
+                EXPLORE WORK <ArrowRight size={16} />
+              </span>
             </button>
 
             <button
               onClick={scrollToContact}
-              className="group relative px-8 py-4 bg-cyan-400 text-black font-bold overflow-hidden transition-all duration-300"
-              onMouseEnter={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty(
-                  "--mouse-x",
-                  `${e.clientX - rect.left}px`
-                );
-                e.currentTarget.style.setProperty(
-                  "--mouse-y",
-                  `${e.clientY - rect.top}px`
-                );
+              className="group relative px-8 py-4 bg-transparent border border-cyan-500/30 text-cyan-400 font-bold text-sm tracking-wider overflow-hidden hover:border-cyan-400 transition-colors"
+              style={{
+                clipPath:
+                  "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
               }}
             >
-              <span className="relative z-10">INITIALIZE CONTACT</span>
-              <div
-                className="absolute inset-0 bg-white scale-0 group-hover:scale-150 transition-transform duration-500 origin-center rounded-full"
-                style={{
-                  left: "var(--mouse-x, 50%)",
-                  top: "var(--mouse-y, 50%)",
-                  transform: "translate(-50%, -50%) scale(0)",
-                }}
-              />
+              <div className="absolute inset-0 bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative flex items-center gap-2">
+                CONTACT_ME <Terminal size={16} />
+              </span>
             </button>
           </div>
 
-          {/* Social links with magnetic effect */}
-          <div className="flex gap-8">
+          {/* Social Dock */}
+          <div className="flex items-center gap-6 px-8 py-4 bg-white/5 border border-white/5 rounded-2xl backdrop-blur-sm hover:border-cyan-500/30 transition-colors duration-300">
             {[
               {
                 Icon: Github,
                 href: "https://github.com/ishantmishra03",
-                label: "GITHUB",
+                label: "GitHub",
               },
               {
                 Icon: Linkedin,
                 href: "https://linkedin.com/in/ishantmishra03",
-                label: "LINKEDIN",
+                label: "LinkedIn",
               },
               {
                 Icon: Mail,
                 href: "mailto:ishantmishra03@gmail.com",
-                label: "EMAIL",
+                label: "Email",
               },
-            ].map(({ Icon, href, label }) => (
+            ].map(({ Icon, href, label }, i) => (
               <a
                 key={label}
                 href={href}
-                target={label !== "EMAIL" ? "_blank" : undefined}
-                rel={label !== "EMAIL" ? "noopener noreferrer" : undefined}
-                className="group flex flex-col items-center gap-2 transition-all duration-300 hover:scale-110"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform =
-                    "scale(1.1) translateY(-5px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1) translateY(0)";
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative p-2 transition-transform hover:-translate-y-1"
+                title={label}
               >
-                <div className="relative p-4 border border-cyan-400/30 group-hover:border-cyan-400 transition-colors">
-                  <Icon
-                    className="text-cyan-400 group-hover:text-white transition-colors"
-                    size={24}
-                  />
-                  <div className="absolute inset-0 bg-cyan-400 opacity-0 group-hover:opacity-10 transition-opacity" />
-                </div>
-                <span className="text-xs text-gray-600 group-hover:text-cyan-400 transition-colors font-mono">
+                <Icon className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity text-cyan-400 whitespace-nowrap">
                   {label}
                 </span>
               </a>
@@ -251,42 +197,48 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Corner accents */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-cyan-400/30" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-cyan-400/30" />
+      {/* Decorative Corners (HUD Style) */}
+      <div className="absolute top-0 left-0 p-8 opacity-50">
+        <div className="w-32 h-32 border-l-2 border-t-2 border-cyan-500/30 rounded-tl-3xl"></div>
+      </div>
+      <div className="absolute bottom-0 right-0 p-8 opacity-50">
+        <div className="w-32 h-32 border-r-2 border-b-2 border-cyan-500/30 rounded-br-3xl"></div>
+      </div>
 
-      {/* Animated cursor follower */}
-      <div
-        className="fixed w-4 h-4 border-2 border-cyan-400 rounded-full pointer-events-none mix-blend-difference z-50 transition-transform duration-200"
-        style={{
-          left: `${mousePos.x}%`,
-          top: `${mousePos.y}%`,
-          transform: `translate(-50%, -50%) scale(${isLoaded ? 1 : 0})`,
-        }}
-      />
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+        <span className="text-[10px] font-mono text-cyan-500 animate-pulse">
+          SCROLL_DOWN
+        </span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-cyan-500 to-transparent"></div>
+      </div>
 
       <style jsx>{`
         @keyframes glitch {
-          0%,
-          100% {
-            transform: translate(0);
+          0% {
+            clip-path: inset(80% 0 0 0);
+            transform: translate(-2px, 1px);
           }
           20% {
-            transform: translate(-2px, 2px);
+            clip-path: inset(10% 0 60% 0);
+            transform: translate(2px, -1px);
           }
           40% {
-            transform: translate(-2px, -2px);
+            clip-path: inset(50% 0 30% 0);
+            transform: translate(-2px, 2px);
           }
           60% {
-            transform: translate(2px, 2px);
-          }
-          80% {
+            clip-path: inset(20% 0 70% 0);
             transform: translate(2px, -2px);
           }
-        }
-
-        button:hover {
-          animation: glitch 0.3s infinite;
+          80% {
+            clip-path: inset(60% 0 10% 0);
+            transform: translate(1px, 2px);
+          }
+          100% {
+            clip-path: inset(0 0 0 0);
+            transform: translate(0);
+          }
         }
       `}</style>
     </section>
